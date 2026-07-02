@@ -22,7 +22,14 @@ function Login() {
       navigate('/stories')
     },
     onError: (err) => {
-      setError(err?.response?.data?.message || err?.message || 'Invalid email or password.')
+      const status = err?.response?.status
+      if (status === 429) {
+        setError('Too many login attempts. Please wait a few minutes and try again.')
+      } else if (status === 401) {
+        setError('Invalid email or password.')
+      } else {
+        setError(err?.response?.data?.message || err?.message || 'Something went wrong. Please try again.')
+      }
     },
   })
 
