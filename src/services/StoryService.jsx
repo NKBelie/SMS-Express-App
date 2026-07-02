@@ -1,17 +1,14 @@
-const API_URL = 'https://sms-express-app-1-production.up.railway.app/api/stories'
+const BASE_URL = 'https://sms-express-app-1-production.up.railway.app/api/stories'
 
-// Only allow alphanumeric characters and hyphens (valid MongoDB/UUID IDs)
-const VALID_ID = /^[a-zA-Z0-9-]+$/
-
-const validateId = (id) => {
-  if (!id || !VALID_ID.test(id)) {
-    throw new Error(`Invalid story ID: ${id}`)
-  }
-  return id
+// Build URL safely using the URL object - prevents CWE-918 SSRF
+const buildUrl = (id = '') => {
+  const url = new URL(BASE_URL)
+  if (id) url.pathname += `/${encodeURIComponent(id)}`
+  return url.toString()
 }
 
-const request = async (path = '', options = {}) => {
-  const response = await fetch(`${API_URL}${path}`, {
+const request = async (url, options = {}) => {
+  const response = await fetch(url, {
     headers: { 'Content-Type': 'application/json', ...options.headers },
     ...options,
   })
@@ -32,15 +29,17 @@ const request = async (path = '', options = {}) => {
   return response.json()
 }
 
-export const getStories = () => request()
+export const getStories = () =>
+  request(buildUrl())
 
-export const getStoryById = (id) => request(`/${validateId(id)}`)
+export const getStoryById = (id) =>
+  request(buildUrl(id))
 
 export const createStory = (story) =>
-  request('', { method: 'POST', body: JSON.stringify(story) })
+  request(buildUrl(), { method: 'POST', body: JSON.stringify(story) })
 
 export const updateStory = (id, story) =>
-  request(`/${validateId(id)}`, { method: 'PUT', body: JSON.stringify(story) })
+  request(buildUrl(id), { method: 'PUT', body: JSON.stringify(story) })
 
 export const deleteStory = (id) =>
-  request(`/${validateId(id)}`, { method: 'DELETE' })
+  request(buildUrl(id), { method: 'DELETE' })
