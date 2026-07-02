@@ -1,4 +1,4 @@
-const API_URL = 'https://sms-express-app-1-production-a843.up.railway.app/api/stories'
+const API_URL = 'https://sms-express-app-1-production.up.railway.app/api/stories'
 
 // Only allow alphanumeric characters and hyphens (valid MongoDB/UUID IDs)
 const VALID_ID = /^[a-zA-Z0-9-]+$/
