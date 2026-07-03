@@ -59,19 +59,34 @@ function Navbar() {
               </button>
             </>
           ) : (
-            <NavLink
-              to="/login"
-              className={({ isActive }) =>
-                [
-                  'rounded-md px-4 py-2 text-sm font-semibold transition',
-                  isActive
-                    ? 'bg-slate-950 text-white'
-                    : 'text-slate-600 hover:bg-white hover:text-slate-950',
-                ].join(' ')
-              }
-            >
-              Login
-            </NavLink>
+            <div className="flex items-center gap-2">
+              <NavLink
+                to="/login"
+                className={({ isActive }) =>
+                  [
+                    'rounded-md px-4 py-2 text-sm font-semibold transition',
+                    isActive
+                      ? 'bg-slate-950 text-white'
+                      : 'text-slate-600 hover:bg-white hover:text-slate-950',
+                  ].join(' ')
+                }
+              >
+                Login
+              </NavLink>
+              <NavLink
+                to="/register"
+                className={({ isActive }) =>
+                  [
+                    'rounded-md px-4 py-2 text-sm font-semibold transition',
+                    isActive
+                      ? 'bg-teal-700 text-white'
+                      : 'bg-teal-700 text-white hover:bg-teal-800',
+                  ].join(' ')
+                }
+              >
+                Register
+              </NavLink>
+            </div>
           )}
         </div>
       </div>
