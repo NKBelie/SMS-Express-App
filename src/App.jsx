@@ -4,6 +4,8 @@ import ProtectedRoute from './components/ProtectedRoute'
 import AddStory from './pages/AddStory.jsx'
 import EditStory from './pages/EditStory.jsx'
 import Login from './pages/Login.jsx'
+import Register from './pages/Register.jsx'
+import VerifyOtp from './pages/VerifyOtp.jsx'
 import StoryDetails from './pages/StoryDetails.jsx'
 import StoryList from './pages/StoryList.jsx'
 
@@ -15,6 +17,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/verify-otp" element={<VerifyOtp />} />
           <Route path="/stories" element={<ProtectedRoute><StoryList /></ProtectedRoute>} />
           <Route path="/story/:id" element={<ProtectedRoute><StoryDetails /></ProtectedRoute>} />
           <Route path="/add" element={<ProtectedRoute><AddStory /></ProtectedRoute>} />
